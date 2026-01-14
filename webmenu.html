@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquidity GUI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* Нежный градиентный фон, как на твоем скрине */
+            background: linear-gradient(135deg, #c3d9ff 0%, #e8dbfc 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Manrope', sans-serif;
+            overflow: hidden; /* Чтобы не было скролла */
+        }
+
+        /* Основная карточка меню */
+        .menu-card {
+            width: 360px;
+            /* Эффект матового стекла */
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 35px;
+            padding: 35px;
+            /* Очень мягкая тень и белая обводка */
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                0 30px 60px rgba(108, 99, 255, 0.1), 
+                inset 0 0 0 1px rgba(255,255,255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        /* Легкое "дыхание" при наведении на все меню */
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 40px 80px rgba(108, 99, 255, 0.15);
+        }
+
+        /* Заголовок */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-weight: 800;
+            color: #2d3436;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            color: #636e72;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Строка функции */
+        .feature-row {
+            background: rgba(255, 255, 255, 0.7);
+            margin-bottom: 14px;
+            padding: 16px 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none; /* Чтобы текст не выделялся при кликах */
+        }
+
+        .feature-row:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        /* Тексты */
+        .feature-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .feature-title {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .feature-desc {
+            font-size: 0.75rem;
+            color: #b2bec3;
+            font-weight: 500;
+        }
+
+        /* Синяя кнопка-галочка */
+        .check-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #eef2f6;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Активное состояние кнопки */
+        .check-btn.active {
+            border-color: #007aff; /* Apple Blue */
+            background: #007aff;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Галочка внутри */
+        .check-btn::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            margin-top: -2px;
+            transition: 0.2s;
+            opacity: 0;
+        }
+
+        .check-btn.active::after {
+            transform: rotate(45deg) scale(1);
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="menu-card">
+        <div class="header">
+            <h1>Liquidity</h1>
+            <p>Version 3.0 • Stable</p>
+        </div>
+
+        <div class="feature-row" onclick="toggleFeature(this)">
+            <div class="feature-info">
+                <span class="feature-title">Aimbot Assist</span>
+                <span class="feature-desc">Legit smoothing</span>
+            </div>
+            <div class="check-btn active"></div>
+        </div>
+
+        <div class="feature-row" onclick="toggleFeature(this)">
+            <div class="feature-info">
+                <span class="feature-title">Wallhack ESP</span>
+                <span class="feature-desc">Skeleton & Box</span>
+            </div>
+            <div class="check-btn active"></div>
+        </div>
+
+        <div class="feature-row" onclick="toggleFeature(this)">
+            <div class="feature-info">
+                <span class="feature-title">Radar Hack</span>
+                <span class="feature-desc">Show enemies</span>
+            </div>
+            <div class="check-btn active"></div>
+        </div>
+
+        <div class="feature-row" onclick="toggleFeature(this)">
+            <div class="feature-info">
+                <span class="feature-title">BunnyHop</span>
+                <span class="feature-desc">Auto jump</span>
+            </div>
+            <div class="check-btn active"></div>
+        </div>
+    </div>
+
+    <script>
+        // Простой скрипт, чтобы кнопки переключались при клике
+        function toggleFeature(element) {
+            const btn = element.querySelector('.check-btn');
+            btn.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
